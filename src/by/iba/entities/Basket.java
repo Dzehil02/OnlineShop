@@ -1,6 +1,7 @@
 package by.iba.entities;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Basket {
 	
@@ -22,12 +23,16 @@ public class Basket {
 		basketProducts.add(product);
 	}
 	
-	public void removeProduct(Product product) {
-		basketProducts.remove(product);
+	public void removeProduct(int id) {
+		basketProducts.remove(getProductById(id).get());
 	}
 	
 	public void clearBasket() {
 		basketProducts.clear();
+	}
+	
+	public Optional<Product> getProductById(int id) {
+		return basketProducts.stream().filter(product -> product.getId() == id).findFirst();
 	}
 
 }

@@ -32,7 +32,6 @@ public class FileUtils {
 			Catalog catalog = (Catalog) ois.readObject();
 			ois.close();
 			System.out.println("ArrayList: " + catalog.getProductList());
-			System.out.println("HashMap: " + catalog.getProductMap());
 			
 			return catalog;
 			

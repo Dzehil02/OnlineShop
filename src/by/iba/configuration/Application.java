@@ -33,21 +33,20 @@ public class Application {
 		seller1.addProduct(catalog, item6);
 		seller1.addProduct(catalog, item7);
 		seller1.addProduct(catalog, new Product(8, Category.TECHNIQUE, Brand.OVEN, "Gefest", 3));
-		seller1.addProduct(catalog, new Product(9, Category.TECHNIQUE, Brand.OVEN, "Gefest", 6));
+		seller1.addProduct(catalog, new Product(8, Category.TECHNIQUE, Brand.OVEN, "Gefest", 6));
 
-		System.out.println(item6.equals(item7));
-
-		System.out.println("Каталог HashMap: " + catalog.getProductMap());
 		System.out.println("Каталог: " + catalog.getProductList());
 
-		seller1.removeProduct(catalog, item4);
+		seller1.removeProduct(catalog, 4);
 
-		customer.addProductToBasket(catalog, 8, 1);
-		customer.addProductToBasket(catalog, 3, 2);
+		customer.addProductToBasket(catalog, 3, 5);
+		customer.addProductToBasket(catalog, 8, 2);
+		customer.addProductToBasket(catalog, 2, 12);
 
 		System.out.println("Корзина: " + customer.basket.getBasketProducts());
 		
-//		customer.removeProductFromBasket(3);
+		customer.removeProductFromBasket(2);
+		customer.removeProductFromBasket(8);
 		
 		try {
 			customer.orderProducts(catalog);
@@ -58,12 +57,9 @@ public class Application {
 
 		System.out.println("Корзина: " + customer.basket.getBasketProducts());
 		System.out.println("Каталог: " + catalog.getProductList());
-		System.out.println("Каталог HashMap: " + catalog.getProductMap());
 
 //		FileUtils.writeCatalog(catalog);
 //		FileUtils.readCatalog();
-
-		System.out.println(item1.compareTo(item2));
 		
 	}
 

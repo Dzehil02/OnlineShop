@@ -10,7 +10,8 @@ public class Seller extends User {
 		catalog.addProduct(newProduct);
 	}
 
-	public void removeProduct(Catalog catalog, Product product) {
-		catalog.removeProduct(product);
+	public void removeProduct(Catalog catalog, int id) {
+		catalog.removeProduct(id);
 	}
+
 }
