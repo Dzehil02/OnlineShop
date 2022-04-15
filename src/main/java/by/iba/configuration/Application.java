@@ -37,7 +37,7 @@ public class Application {
 
 		System.out.println("Каталог: " + catalog.getProductList());
 
-		seller1.removeProduct(catalog, 4);
+//		seller1.removeProduct(catalog, 4);
 
 		customer.addProductToBasket(catalog, 3, 5);
 		customer.addProductToBasket(catalog, 8, 2);
@@ -58,8 +58,8 @@ public class Application {
 		System.out.println("Корзина: " + customer.basket.getBasketProducts());
 		System.out.println("Каталог: " + catalog.getProductList());
 
-//		FileUtils.writeCatalog(catalog);
-//		FileUtils.readCatalog();
+//		FileUtils.writeCatalog(catalog, "src/main/resources/catalog.bin");
+//		FileUtils.readCatalog("src/main/resources/catalog.bin");
 		
 	}
 

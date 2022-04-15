@@ -9,10 +9,10 @@ import by.iba.entities.Catalog;
 
 public class FileUtils {
 	
-	public static void writeCatalog(Catalog catalog) {
+	public static void writeCatalog(Catalog catalog, String path) {
 		
 		try {
-			FileOutputStream fos = new FileOutputStream("src/by/iba/resources/catalog.bin");
+			FileOutputStream fos = new FileOutputStream(path);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			
 			oos.writeObject(catalog);
@@ -23,10 +23,10 @@ public class FileUtils {
 		}
 	}
 	
-	public static Catalog readCatalog() {
+	public static Catalog readCatalog(String path) {
 		
 		try {
-			FileInputStream fis = new FileInputStream("src/by/iba/resources/catalog.bin");
+			FileInputStream fis = new FileInputStream(path);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			
 			Catalog catalog = (Catalog) ois.readObject();

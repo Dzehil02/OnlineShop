@@ -10,11 +10,8 @@ public class Catalog implements Serializable {
 
 	private ArrayList<Product> productList;
 
-	private Integer productId;
-
 	public Catalog() {
 		this.productList = new ArrayList<Product>();
-		this.productId = 0;
 	}
 
 	public ArrayList<Product> getProductList() {
@@ -23,14 +20,6 @@ public class Catalog implements Serializable {
 
 	public void setProductList(ArrayList<Product> productList) {
 		this.productList = productList;
-	}
-
-	public Integer getProductId() {
-		return productId;
-	}
-
-	public void setProductId(Integer productId) {
-		this.productId = productId;
 	}
 
 	public Optional<Product> getProductById(int id) {

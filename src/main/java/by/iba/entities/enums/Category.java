@@ -5,6 +5,10 @@ public enum Category {
 	ELECTRONICS,
 	COMPUTERS,
 	TECHNIQUE,
-	INSTRUMENTS
+	INSTRUMENTS;
+	
+	public static Category getCategory(String value) {
+		return Category.TECHNIQUE;
+	}
 
 }

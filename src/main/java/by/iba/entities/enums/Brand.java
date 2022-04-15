@@ -20,6 +20,10 @@ public enum Brand {
 	PERFORATOR,
 	SAW,
 	DRILL,
-	OVEN
+	OVEN;
+	
+	public static Brand getBrand(String value) {
+		return Brand.PHONE;
+	}
 
 }
