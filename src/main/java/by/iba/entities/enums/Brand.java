@@ -21,9 +21,5 @@ public enum Brand {
 	SAW,
 	DRILL,
 	OVEN;
-	
-	public static Brand getBrand(String value) {
-		return Brand.PHONE;
-	}
 
 }

@@ -7,8 +7,4 @@ public enum Category {
 	TECHNIQUE,
 	INSTRUMENTS;
 	
-	public static Category getCategory(String value) {
-		return Category.TECHNIQUE;
-	}
-
 }

@@ -27,7 +27,7 @@ public class Catalog implements Serializable {
 	}
 
 	public void addProduct(Product newProduct) {
-		Optional<Product> productToAdd = getProductById(newProduct.getId());
+		Optional<Product> productToAdd = productList.stream().filter(product -> product.equals(newProduct)).findFirst();
 		if (productToAdd.isPresent()) {
 			productToAdd.get().setCount(newProduct.getCount() + productToAdd.get().getCount());
 		} else {

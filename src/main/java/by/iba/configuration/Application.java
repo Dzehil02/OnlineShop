@@ -58,7 +58,7 @@ public class Application {
 		System.out.println("Корзина: " + customer.basket.getBasketProducts());
 		System.out.println("Каталог: " + catalog.getProductList());
 
-//		FileUtils.writeCatalog(catalog, "src/main/resources/catalog.bin");
+		FileUtils.writeCatalog(catalog, "src/main/resources/catalog.bin");
 //		FileUtils.readCatalog("src/main/resources/catalog.bin");
 		
 	}
