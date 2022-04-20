@@ -5,11 +5,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import by.iba.entities.Catalog;
+import java.util.ArrayList;
+
+import by.iba.entities.Product;
 
 public class FileUtils {
 	
-	public static void writeCatalog(Catalog catalog, String path) {
+	public static void writeCatalog(ArrayList<Product> catalog, String path) {
 		
 		try {
 			FileOutputStream fos = new FileOutputStream(path);
@@ -23,15 +25,15 @@ public class FileUtils {
 		}
 	}
 	
-	public static Catalog readCatalog(String path) {
+	@SuppressWarnings("unchecked")
+	public static ArrayList<Product> readCatalog(String path) {
 		
 		try {
 			FileInputStream fis = new FileInputStream(path);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			
-			Catalog catalog = (Catalog) ois.readObject();
+			ArrayList<Product> catalog = (ArrayList<Product>) ois.readObject();
 			ois.close();
-			System.out.println("ArrayList: " + catalog.getProductList());
 			
 			return catalog;
 			
@@ -41,6 +43,6 @@ public class FileUtils {
 			e.printStackTrace();
 		}
 		
-		return new Catalog();
+		return new ArrayList<>();
 	}
 }

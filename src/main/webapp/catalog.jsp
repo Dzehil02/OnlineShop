@@ -2,23 +2,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 
 <html>
-<head>
-
-<script	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<head>
+		<script	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	
-<script type="text/javascript">
-	function sendDelete(id) {
-		$.ajax({
-			type : "DELETE",
-			url : "/catalog/product?id=" + id,
-			success : function(page) {
-				$( "html" ).html(page);
-		    },
-		});
-	}
-</script>
+		<script type="text/javascript">
+			function sendDelete(id,category, brand, model, count) {
+				$.ajax({
+					type : "DELETE",
+					url : "/catalog/product",
+					data: JSON.stringify({ "id": id, "category": category, "brand" : brand, "model" : model, "count" : count}),
+					success : function(page) {
+						$( "html" ).html(page);
+				    },
+				});
+			}
+		</script>
 
-<title>OnlineShop</title>
+		<title>OnlineShop</title>
 </head>
 <body>
 	<h1>This is OnlineShop !!!</h1>
@@ -42,8 +42,8 @@
 				<td><c:out value="${product.brand}" /></td>
 				<td><c:out value="${product.model}" /></td>
 				<td><c:out value="${product.count}" /></td>
-				<td><button onclick=(location.href="/catalog/product?id=${product.id}")>Изменить продукт</button></td>
-				<td><button onClick="sendDelete(${product.id})">Удалить продукт</button></td>
+				<td><button onclick="location.href='/catalog/product?id=${product.id}'">Изменить продукт</button></td>
+				<td><button onClick="sendDelete('${product.id}','${product.category}','${product.brand}','${product.model}','${product.count}')">Удалить продукт</button></td>
 			</tr>
 		</c:forEach>
 	</table>

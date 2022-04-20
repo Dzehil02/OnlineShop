@@ -7,8 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import by.iba.entities.Catalog;
-import by.iba.utils.FileUtils;
+import by.iba.services.CatalogService;
 
 import java.io.IOException;
 
@@ -17,12 +16,18 @@ public class CatalogServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 2264498497546081400L;
 
+	private CatalogService service;
+
+	public CatalogServlet() {
+		super();
+		service = new CatalogService();
+	}
+
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Catalog catalog = FileUtils.readCatalog(this.getClass().getClassLoader().getResource("catalog.bin").getPath());
-		request.setAttribute("productList", catalog.getProductList());
+		request.setAttribute("productList", service.getCatalog());
 		request.getRequestDispatcher("catalog.jsp").forward(request, response);
 	}
 

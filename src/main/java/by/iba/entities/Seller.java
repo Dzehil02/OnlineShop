@@ -6,12 +6,4 @@ public class Seller extends User {
 		super(login, password);
 	}
 
-	public void addProduct(Catalog catalog, Product newProduct) {
-		catalog.addProduct(newProduct);
-	}
-
-	public void removeProduct(Catalog catalog, int id) {
-		catalog.removeProduct(id);
-	}
-
 }

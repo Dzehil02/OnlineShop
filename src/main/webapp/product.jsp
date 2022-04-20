@@ -1,5 +1,3 @@
-<%@page import="by.iba.entities.enums.Brand"%>
-<%@page import="by.iba.entities.enums.Category"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 
@@ -18,6 +16,16 @@ function sendPut(id) {
 	    },
     });
 }
+function sendPost() {
+	$.ajax({
+        type: "POST",
+        url: "/catalog/product",
+        data: JSON.stringify({ "id": null, "category": $('select[name=category]').val(), "brand" : $('select[name=brand]').val(), "model" : $('input[name=model]').val(), "count" : $('input[name=count]').val()}),
+        success : function(page) {
+			$( "html" ).html(page);
+	    },
+    });
+}
 </script>
 
 <title>OnlineShop</title>
@@ -25,15 +33,14 @@ function sendPut(id) {
 <body>
 	<h1>This is Product !!!</h1>
 	<c:if test="${product.id == null}">
-		<form method="POST" action="/catalog/product">
-		<input type="submit" value="Добавить продукт" />
+		<form>
 			<select	id="category" name="category">
-				<c:forEach items="<%=Category.values()%>" var="item">
+				<c:forEach items="${category}" var="item">
 					<option value="${item}">${item}</option>
 				</c:forEach>
 			</select>
 			<select id="brand" name="brand">
-				<c:forEach items="<%=Brand.values()%>" var="item">
+				<c:forEach items="${brand}" var="item">
 					<option value="${item}">${item}</option>
 				</c:forEach>
 			</select>
@@ -42,12 +49,13 @@ function sendPut(id) {
 			<br>
 			
 		</form>
+		<button onclick="sendPost()">Добавить продукт</button>
 	</c:if>
 	
 	<c:if test="${product.id != null}">
 		<form>
 			<select	id="category" name="category">
-				<c:forEach items="<%=Category.values()%>" var="item">
+				<c:forEach items="${category}" var="item">
 					<c:if test="${product.category == item}">
 						<option selected value="${item}">${item}</option>
 					</c:if>
@@ -57,7 +65,7 @@ function sendPut(id) {
 				</c:forEach>
 			</select>
 			<select id="brand" name="brand">
-				<c:forEach items="<%=Brand.values()%>" var="item">
+				<c:forEach items="${brand}" var="item">
 					<c:if test="${product.brand == item}">
 						<option selected value="${item}">${item}</option>
 					</c:if>

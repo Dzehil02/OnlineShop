@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import by.iba.database.dao.LocalCatalog;
 import by.iba.exceptions.NotEnoughProductsException;
 
 public class Customer extends User {
@@ -30,7 +31,7 @@ public class Customer extends User {
 		this.age = age;
 	}
 
-	public void addProductToBasket(Catalog catalog, int productId, int productCount) {
+	public void addProductToBasket(LocalCatalog catalog, int productId, int productCount) {
 		ArrayList<Product> productList = catalog.getProductList();
 
 		Optional<Product> productAdded = productList.stream().filter(product -> product.getId() == productId)
@@ -47,7 +48,7 @@ public class Customer extends User {
 
 	}
 
-	public void orderProducts(Catalog catalog) throws NotEnoughProductsException {
+	public void orderProducts(LocalCatalog catalog) throws NotEnoughProductsException {
 
 		StringBuilder error = new StringBuilder("Недостаточно товара: ");
 
