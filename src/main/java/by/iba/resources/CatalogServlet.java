@@ -7,9 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import by.iba.services.CatalogService;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet("/catalog")
 public class CatalogServlet extends HttpServlet {
@@ -26,9 +29,13 @@ public class CatalogServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String catalogJson = new Gson().toJson(service.getCatalog());
+		PrintWriter out = response.getWriter();
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		out.print(catalogJson);
+		out.flush();
 
-		request.setAttribute("productList", service.getCatalog());
-		request.getRequestDispatcher("catalog.jsp").forward(request, response);
 	}
 
 }

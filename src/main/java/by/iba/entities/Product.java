@@ -70,7 +70,7 @@ public class Product implements Comparable<Product>, Cloneable, Serializable {
 
 	@Override
 	public String toString() {
-		return model + " : " + count;
+		return category + " " + brand + " " + model + " : " + count;
 	}
 
 	@Override

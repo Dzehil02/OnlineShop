@@ -1,48 +1,26 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Product from "./Product";
-import { Button } from "react-bootstrap";
 
 const ProductList = () => {
-  // const arr = [
-  //   {
-  //     id: 1,
-  //     category: "COMPUTERS",
-  //     brand: "NOTEBOOK",
-  //     model: "HP Pavilion",
-  //     count: 14,
-  //   },
-  //   {
-  //     id: 2,
-  //     category: "ELECTRONICS",
-  //     brand: "TV",
-  //     model: "LG",
-  //     count: 7,
-  //   },
-  //   {
-  //     id: 3,
-  //     category: "TECHNIQUE",
-  //     brand: "FRIDGE",
-  //     model: "Samsung",
-  //     count: 4,
-  //   },
-  //   {
-  //     id: 4,
-  //     category: "INSTRUMENTS",
-  //     brand: "DRILL",
-  //     model: "Bosh",
-  //     count: 5,
-  //   },
-  //   {
-  //     id: 5,
-  //     category: "TECHNIQUE",
-  //     brand: "OVEN",
-  //     model: "Gefest",
-  //     count: 9,
-  //   },
-  // ];
 
   const [catalogState, setCatalogState] = useState([]);
+
+  const deleteProduct = async function (item) {
+    await fetch("/catalog/product", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify({
+        "category": item.category,
+        "brand": item.brand,
+        "model": item.model,
+        "count": item.count,
+      })
+    });
+    await setCatalogState(catalogState.filter(product => product !== item));
+  }
 
   useEffect(() => {
     fetch('/catalog')
@@ -52,11 +30,10 @@ const ProductList = () => {
     });
   }, [setCatalogState]);
 
-
   return (
     <tbody>
       {catalogState.map((item) => (
-        <Product item={item} key={item.id} />
+        <Product item={item} key={item.id} deleteProduct={deleteProduct}/>
       ))}
     </tbody>
   );

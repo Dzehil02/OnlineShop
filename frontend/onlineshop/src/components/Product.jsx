@@ -1,8 +1,10 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 
 const Product = (props) => {
+  
   return (
     <tr>
       <td>{props.item.id}</td>
@@ -11,10 +13,11 @@ const Product = (props) => {
       <td>{props.item.model}</td>
       <td>{props.item.count}</td>
       <td>
-        <Button variant="warning">Изменить продукт</Button>
+        {/* <Button variant="warning" onClick={() => props.forwardToProduct(props.item)}>Изменить продукт</Button> */}
+        <Button variant="warning"><Link to={`/product/${props.item.id}`}>Изменить продукт</Link></Button>
       </td>
       <td>
-        <Button variant="danger">Удалить продукт</Button>
+        <Button variant="danger" onClick={() => props.deleteProduct(props.item)}>Удалить продукт</Button>
       </td>
     </tr>
   );

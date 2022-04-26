@@ -1,11 +1,10 @@
-import React from "react";
 import ProductList from "../components/ProductList";
 import { Table } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function Catalog() {
-  
+
   return (
     <div className="App">
       <h1>Online Shop React</h1>
