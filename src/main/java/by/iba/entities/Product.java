@@ -3,21 +3,40 @@ package by.iba.entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import by.iba.entities.enums.Brand;
 import by.iba.entities.enums.Category;
 
+@Entity
+@Table (name = "products")
 public class Product implements Comparable<Product>, Cloneable, Serializable {
 
 	private static final long serialVersionUID = 6909116790018884827L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
+	@Column(name = "category")
+	@Enumerated(EnumType.STRING)
 	private Category category;
 
+	@Column(name = "brand")
+	@Enumerated(EnumType.STRING)
 	private Brand brand;
 
+	@Column(name = "model")
 	private String model;
 
+	@Column(name = "count")
 	private int count;
 
 	public Product(int id, Category category, Brand brand, String model, int count) {
@@ -26,6 +45,10 @@ public class Product implements Comparable<Product>, Cloneable, Serializable {
 		this.brand = brand;
 		this.model = model;
 		this.count = count;
+	}
+	
+	public Product() {
+		
 	}
 
 	public int getId() {

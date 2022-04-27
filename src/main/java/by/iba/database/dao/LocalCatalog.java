@@ -3,9 +3,12 @@ package by.iba.database.dao;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import javax.enterprise.context.Dependent;
+
 import by.iba.entities.Product;
 import by.iba.utils.FileUtils;
 
+//@Dependent
 public class LocalCatalog implements Catalog {
 
 	public ArrayList<Product> getProductList() {
@@ -19,7 +22,7 @@ public class LocalCatalog implements Catalog {
 
 	public void createProduct(Product newProduct) {
 		ArrayList<Product> productList = getProductList();
-		Optional<Product> productToAdd = productList.stream().filter(product -> product.equals(newProduct)).findFirst();
+		Optional<Product> productToAdd = getExistingProduct(newProduct);
 		if (productToAdd.isPresent()) {
 			productToAdd.get().setCount(newProduct.getCount() + productToAdd.get().getCount());
 		} else {
@@ -45,6 +48,12 @@ public class LocalCatalog implements Catalog {
 		productList.remove(product);
 
 		FileUtils.writeCatalog(productList, this.getClass().getClassLoader().getResource("catalog.bin").getPath());
+	}
+
+	@Override
+	public Optional<Product> getExistingProduct(Product newProduct) {
+		ArrayList<Product> productList = getProductList();
+		return productList.stream().filter(product -> product.equals(newProduct)).findFirst();
 	}
 
 }

@@ -2,20 +2,20 @@ package by.iba.services;
 
 import java.util.ArrayList;
 
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
+
 import by.iba.database.dao.Catalog;
-import by.iba.database.dao.LocalCatalog;
 import by.iba.entities.Product;
 
+@Dependent
 public class CatalogService {
 	
-	private Catalog catalog;
-	
-	public CatalogService() {
-		catalog = new LocalCatalog();
-	}
+	@Inject
+	private Catalog catalogDao;
 
 	public ArrayList<Product> getCatalog() {
-		return catalog.getProductList();
+		return catalogDao.getProductList();
 	}
 
 }

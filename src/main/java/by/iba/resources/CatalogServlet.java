@@ -2,7 +2,7 @@ package by.iba.resources;
 
 import javax.servlet.ServletException;
 
-import javax.servlet.annotation.WebServlet;
+//import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +14,8 @@ import by.iba.services.CatalogService;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/catalog")
+//@WebServlet("/catalog")
+@Deprecated
 public class CatalogServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 2264498497546081400L;
