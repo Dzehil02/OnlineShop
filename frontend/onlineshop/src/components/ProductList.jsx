@@ -12,14 +12,9 @@ const ProductList = () => {
       headers: {
         "Content-Type": "application/json;charset=utf-8",
       },
-      body: JSON.stringify({
-        "category": item.category,
-        "brand": item.brand,
-        "model": item.model,
-        "count": item.count,
-      })
+      body: JSON.stringify(item)
     });
-    await setCatalogState(catalogState.filter(product => product !== item));
+    await setCatalogState(catalogState.filter(product => product !== item)); //поменять на get catalog
   }
 
   useEffect(() => {

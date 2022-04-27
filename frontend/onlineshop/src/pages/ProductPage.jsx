@@ -9,7 +9,6 @@ function ProductPage() {
   const { id } = useParams();
 
   const defaultProduct = {
-    "id": 0,
     "category": "ELECTRONICS",
     "brand": "PHONE",
     "model": "Apple",
@@ -19,7 +18,7 @@ function ProductPage() {
   useEffect(() => {
 
     if(id > 0) {
-      fetch(`/catalog/product?id=${id}`)
+      fetch(`/catalog/product/${id}`)
         .then((res) => res.json())
         .then((data) => setProduct(data))
         .catch(() => {
@@ -27,7 +26,7 @@ function ProductPage() {
         });
     }
 
-    }, [id]);
+  }, [id]);
     
   const changeProduct = async function () {
 
@@ -130,7 +129,7 @@ function ProductPage() {
           onChange={(e) => {
             setProduct((product) => ({
               ...product,
-              count: e.target.value,
+              count: +e.target.value,
             }));
           }}
           style={{ width: "200px" }}
