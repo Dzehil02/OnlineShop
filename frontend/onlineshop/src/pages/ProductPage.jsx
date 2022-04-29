@@ -1,46 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
+import { defaultProduct } from "../utils/constants";
 
 function ProductPage() {
 
   const history = useNavigate();
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState(defaultProduct);
   const { id } = useParams();
 
-  const defaultProduct = {
-    "category": "ELECTRONICS",
-    "brand": "PHONE",
-    "model": "Apple",
-    "count": 100
-  }
-
   useEffect(() => {
-
-    if(id > 0) {
+    if (id > 0) {
       fetch(`/catalog/product/${id}`)
         .then((res) => res.json())
         .then((data) => setProduct(data))
         .catch(() => {
           console.log("Продукт не найден");
+          history("/notfound");
         });
     }
-
-  }, [id]);
-    
-  const changeProduct = async function () {
-
-    await fetch("/catalog/product", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify(
-        product
-      ),
-    });
-    await history("/catalog");
-  };
+  }, [id, history]);
 
   const addProduct = async function () {
     await fetch("/catalog/product", {
@@ -48,31 +27,32 @@ function ProductPage() {
       headers: {
         "Content-Type": "application/json;charset=utf-8",
       },
-      body: JSON.stringify(
-        product
-      ),
+      body: JSON.stringify(product),
     });
     await history("/catalog");
   };
 
-  if(product === null) {
-    setProduct(defaultProduct)
-    return
+  const changeProduct = async function () {
+    await fetch("/catalog/product", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(product),
+    });
+    await history("/catalog");
   };
 
   return (
     <>
-    {id > 0
-      ? <h1>Изменение продукта</h1>
-      : <h1>Добавление продукта</h1>
-    }
-      
+      {id > 0 ? <h1>Изменение продукта</h1> : <h1>Добавление продукта</h1>}
+
       <div
         style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          flexDirection: "column"
+          flexDirection: "column",
         }}
       >
         <Form.Label>Категория</Form.Label>
@@ -137,17 +117,24 @@ function ProductPage() {
           placeholder="Count"
         />
         {id > 0 ? (
-          <Button variant="warning" onClick={changeProduct} style={{ marginTop: "10px" }}>
+          <Button
+            variant="warning"
+            onClick={changeProduct}
+            style={{ marginTop: "10px" }}
+          >
             Изменить
           </Button>
         ) : (
-          <Button variant="success" onClick={addProduct} style={{ marginTop: "10px" }}>
+          <Button
+            variant="success"
+            onClick={addProduct}
+            style={{ marginTop: "10px" }}
+          >
             Добавить
           </Button>
         )}
       </div>
-
-      <div>ID: {id}</div>
+      {id > 0 ? <div>Продукт с ID: {id}</div> : <div>Добавьте продукт</div>}
     </>
   );
 }

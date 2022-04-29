@@ -1,8 +1,8 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Catalog from "./pages/Catalog";
+import Home from "./pages/HomePage";
+import Catalog from "./pages/CatalogPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import Layout from "./components/Layout";
 import ProductPage from "./pages/ProductPage";

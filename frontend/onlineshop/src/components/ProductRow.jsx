@@ -13,7 +13,6 @@ const Product = (props) => {
       <td>{props.item.model}</td>
       <td>{props.item.count}</td>
       <td>
-        {/* <Button variant="warning" onClick={() => props.forwardToProduct(props.item)}>Изменить продукт</Button> */}
         <Button variant="warning"><Link to={`/product/${props.item.id}`}>Изменить продукт</Link></Button>
       </td>
       <td>

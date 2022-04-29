@@ -2,7 +2,6 @@ package by.iba.resources;
 
 import java.util.ArrayList;
 
-import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
@@ -13,8 +12,7 @@ import by.iba.services.CatalogService;
 @Path("/catalog")
 public class CatalogResourse {
 
-	@Inject
-	private CatalogService service;
+	private CatalogService service = new CatalogService();
 
 	@GET
 	public Response getCatalog() {

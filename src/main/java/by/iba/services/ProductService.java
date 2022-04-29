@@ -8,11 +8,7 @@ import by.iba.entities.Product;
 
 public class ProductService {
 
-	private Catalog catalogDao;
-
-	public ProductService() {
-		catalogDao = new CatalogDao();
-	}
+	private Catalog catalogDao = new CatalogDao();
 
 	public Product getProductById(int id) {
 		return catalogDao.getProductById(id);

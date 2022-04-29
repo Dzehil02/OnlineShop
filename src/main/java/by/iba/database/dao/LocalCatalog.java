@@ -3,12 +3,9 @@ package by.iba.database.dao;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import javax.enterprise.context.Dependent;
-
 import by.iba.entities.Product;
 import by.iba.utils.FileUtils;
 
-//@Dependent
 public class LocalCatalog implements Catalog {
 
 	public ArrayList<Product> getProductList() {

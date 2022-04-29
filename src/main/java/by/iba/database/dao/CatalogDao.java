@@ -3,8 +3,6 @@ package by.iba.database.dao;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import javax.enterprise.context.Dependent;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -12,7 +10,6 @@ import org.hibernate.query.Query;
 import by.iba.entities.Product;
 import by.iba.utils.HibernateSessionFactoryUtil;
 
-@Dependent
 public class CatalogDao implements Catalog {
 
 	@Override

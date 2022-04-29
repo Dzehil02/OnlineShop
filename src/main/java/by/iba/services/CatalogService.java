@@ -3,16 +3,15 @@ package by.iba.services;
 import java.util.ArrayList;
 
 import javax.enterprise.context.Dependent;
-import javax.inject.Inject;
 
 import by.iba.database.dao.Catalog;
+import by.iba.database.dao.CatalogDao;
 import by.iba.entities.Product;
 
 @Dependent
 public class CatalogService {
 	
-	@Inject
-	private Catalog catalogDao;
+	private Catalog catalogDao = new CatalogDao();
 
 	public ArrayList<Product> getCatalog() {
 		return catalogDao.getProductList();
