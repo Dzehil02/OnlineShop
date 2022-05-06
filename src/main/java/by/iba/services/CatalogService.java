@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.enterprise.context.Dependent;
 
+import by.iba.criteria.Criterias;
 import by.iba.database.dao.Catalog;
 import by.iba.database.dao.CatalogDao;
 import by.iba.entities.Product;
@@ -15,6 +16,10 @@ public class CatalogService {
 
 	public ArrayList<Product> getCatalog() {
 		return catalogDao.getProductList();
+	}
+	
+	public ArrayList<Product> getCatalogByCriterias(Criterias criteria) {
+		return catalogDao.getCategoriesCatalogPart(criteria);
 	}
 
 }

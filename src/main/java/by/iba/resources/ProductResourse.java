@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 import by.iba.entities.Product;
 import by.iba.services.ProductService;
 
+@Deprecated
 @Path("/catalog/product")
 public class ProductResourse {
 	

@@ -3,6 +3,7 @@ package by.iba.database.dao;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import by.iba.criteria.Criterias;
 import by.iba.entities.Product;
 import by.iba.utils.FileUtils;
 
@@ -52,5 +53,12 @@ public class LocalCatalog implements Catalog {
 		ArrayList<Product> productList = getProductList();
 		return productList.stream().filter(product -> product.equals(newProduct)).findFirst();
 	}
+
+	@Override
+	public ArrayList<Product> getCategoriesCatalogPart(Criterias criteria) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

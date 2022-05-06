@@ -3,11 +3,15 @@ package by.iba.database.dao;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import by.iba.criteria.Criterias;
 import by.iba.entities.Product;
+import by.iba.entities.enums.Brand;
+import by.iba.entities.enums.Category;
 import by.iba.utils.HibernateSessionFactoryUtil;
 
 public class CatalogDao implements Catalog {
@@ -59,5 +63,18 @@ public class CatalogDao implements Catalog {
 		query.setParameter(3, product.getModel());
 		return Optional.ofNullable(query.uniqueResult());
 	}
+
+	@Override
+	public ArrayList<Product> getCategoriesCatalogPart(Criterias criteria) {
+		Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession();
+		Query<Product> query = session.createQuery("From Product where category = :category and brand = :brand ");
+		query.setParameter("category", criteria.getCategory());
+		query.setParameter("brand", criteria.getBrand());
+		ArrayList<Product> products = (ArrayList<Product>) query.list();
+		return products;
+	}
+
+
+	
 
 }

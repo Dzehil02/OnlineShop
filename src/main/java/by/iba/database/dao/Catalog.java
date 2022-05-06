@@ -3,6 +3,9 @@ package by.iba.database.dao;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import org.hibernate.Criteria;
+
+import by.iba.criteria.Criterias;
 import by.iba.entities.Product;
 
 public interface Catalog {
@@ -18,5 +21,7 @@ public interface Catalog {
 	public void deleteProduct(Product product);
 	
 	public Optional<Product> getExistingProduct(Product product);
+	
+	public ArrayList<Product> getCategoriesCatalogPart(Criterias criteria);
 
 }
