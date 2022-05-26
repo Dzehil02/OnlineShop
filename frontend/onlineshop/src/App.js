@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/HomePage";
@@ -9,6 +9,24 @@ import ProductPage from "./pages/ProductPage";
 
 
 function App() {
+
+// ================= Запрос с категориями для проверки ===================
+useEffect(() => {
+  fetchCategorized()
+}, []);
+
+async function fetchCategorized() {
+  const categorized = await fetch("/catalog/categorized", {
+    headers: {
+      "Content-Type": "application/json;charset=utf-8",
+      "criteria": "{category: COMPUTERS, brand: PHOTO}"
+    }
+  });
+  const data = await categorized.json();
+  console.log(data)
+}
+// ================= Запрос с категориями для проверки ===================
+
   return (
     <>
       <Routes>

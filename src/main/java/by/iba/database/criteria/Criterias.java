@@ -1,4 +1,4 @@
-package by.iba.criteria;
+package by.iba.database.criteria;
 
 import by.iba.entities.enums.Brand;
 import by.iba.entities.enums.Category;

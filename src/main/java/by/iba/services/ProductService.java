@@ -2,13 +2,13 @@ package by.iba.services;
 
 import java.util.Optional;
 
-import by.iba.database.dao.Catalog;
 import by.iba.database.dao.CatalogDao;
+import by.iba.database.dao.CatalogDaoHibernateImpl;
 import by.iba.entities.Product;
 
 public class ProductService {
 
-	private Catalog catalogDao = new CatalogDao();
+	private CatalogDao catalogDao = new CatalogDaoHibernateImpl();
 
 	public Product getProductById(int id) {
 		return catalogDao.getProductById(id);
