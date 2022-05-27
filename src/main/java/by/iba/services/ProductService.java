@@ -2,18 +2,25 @@ package by.iba.services;
 
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import by.iba.database.dao.CatalogDao;
-import by.iba.database.dao.CatalogDaoHibernateImpl;
 import by.iba.entities.Product;
 
+@Service
 public class ProductService {
 
-	private CatalogDao catalogDao = new CatalogDaoHibernateImpl();
+	@Autowired
+	private CatalogDao catalogDao;
 
 	public Product getProductById(int id) {
 		return catalogDao.getProductById(id);
 	}
 
+	@Transactional
 	public void createProduct(Product product) {
 		Optional<Product> existingProduct = catalogDao.getExistingProduct(product);
 		if(existingProduct.isPresent()) {
@@ -25,10 +32,12 @@ public class ProductService {
 		
 	}
 
+	@Transactional
 	public void updateProduct(Product product) {
 		catalogDao.updateProduct(product);
 	}
 
+	@Transactional
 	public void deleteProduct(Product product) {
 		catalogDao.deleteProduct(product);
 	}

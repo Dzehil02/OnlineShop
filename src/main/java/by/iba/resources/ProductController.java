@@ -1,6 +1,7 @@
 package by.iba.resources;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,8 @@ import by.iba.services.ProductService;
 @RequestMapping("catalog/product")
 public class ProductController {
 
-	private ProductService service = new ProductService();
+	@Autowired
+	private ProductService service;
 	
 	@GetMapping("/{id}")
 	@ResponseStatus(HttpStatus.OK)

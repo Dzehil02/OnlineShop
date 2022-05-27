@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerA
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 
+import by.iba.configuration.ApplicationConfiguration;
 import by.iba.database.dao.CatalogDaoHibernateImpl;
 import by.iba.resources.CatalogController;
 import by.iba.resources.ProductController;
@@ -17,7 +18,7 @@ import by.iba.services.CatalogService;
 		DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
 @SpringBootApplication
 @ComponentScan(basePackageClasses = {CatalogController.class, ProductController.class,
-		CatalogService.class, CatalogDaoHibernateImpl.class})
+		CatalogService.class, CatalogDaoHibernateImpl.class,  ApplicationConfiguration.class})
 public class Application {
 
 	public static void main(String[] args) {
