@@ -21,7 +21,9 @@ public class CatalogDaoHibernateImpl implements CatalogDao {
 	@Override
 	public Product getProductById(int id) {
 		Session session = sessionFactory.openSession();
-		return session.get(Product.class, id);
+		Product product = session.get(Product.class, id);
+		session.close();
+		return product;
 	}
 
 	@Override
@@ -52,11 +54,12 @@ public class CatalogDaoHibernateImpl implements CatalogDao {
 
 	@Override
 	public Optional<Product> getExistingProduct(Product product) {
-		Session session = sessionFactory.openSession();
+		Session session = sessionFactory.getCurrentSession();
 		Query<Product> query = session.createQuery("select p from Product p where p.category = :category and p.brand = ?2 and p.model = ?3");
 		query.setParameter("category", product.getCategory());
 		query.setParameter(2, product.getBrand());
 		query.setParameter(3, product.getModel());
+		
 		return Optional.ofNullable(query.uniqueResult());
 	}
 
@@ -67,10 +70,8 @@ public class CatalogDaoHibernateImpl implements CatalogDao {
 		query.setParameter("category", criteria.getCategory());
 		query.setParameter("brand", criteria.getBrand());
 		ArrayList<Product> products = (ArrayList<Product>) query.list();
+		session.close();
 		return products;
 	}
-
-
-	
 
 }

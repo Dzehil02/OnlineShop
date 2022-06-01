@@ -38,6 +38,9 @@ public class Product implements Comparable<Product>, Cloneable, Serializable {
 
 	@Column(name = "count")
 	private int count;
+	
+	@Column(name = "price")
+	private int price;
 
 	public Product(int id, Category category, Brand brand, String model, int count) {
 		this.id = id;
@@ -45,6 +48,7 @@ public class Product implements Comparable<Product>, Cloneable, Serializable {
 		this.brand = brand;
 		this.model = model;
 		this.count = count;
+		this.price = price;
 	}
 	
 	public Product() {
@@ -81,6 +85,14 @@ public class Product implements Comparable<Product>, Cloneable, Serializable {
 
 	public void setCount(int count) {
 		this.count = count;
+	}
+	
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 	public String getModel() {

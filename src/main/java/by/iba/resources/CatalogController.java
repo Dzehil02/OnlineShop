@@ -22,7 +22,6 @@ import by.iba.services.CatalogService;
 @Component
 public class CatalogController {
 
-	
 	@Autowired
 	private CatalogService service;
 

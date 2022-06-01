@@ -17,8 +17,7 @@ import by.iba.services.CatalogService;
 @EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class,
 		DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
 @SpringBootApplication
-@ComponentScan(basePackageClasses = {CatalogController.class, ProductController.class,
-		CatalogService.class, CatalogDaoHibernateImpl.class,  ApplicationConfiguration.class})
+@ComponentScan(basePackages = "by.iba")
 public class Application {
 
 	public static void main(String[] args) {
