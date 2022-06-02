@@ -4,11 +4,9 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.mysql.cj.xdevapi.SessionFactory;
 
 import by.iba.database.dao.CatalogDao;
 import by.iba.entities.Product;
@@ -28,7 +26,6 @@ public class ProductService {
 		Optional<Product> existingProduct = catalogDao.getExistingProduct(product);
 		if(existingProduct.isPresent()) {
 			existingProduct.get().setCount(product.getCount() + existingProduct.get().getCount());
-//			catalogDao.updateProduct(existingProduct.get());
 		} else {
 			catalogDao.createProduct(product);
 		}

@@ -9,18 +9,18 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import by.iba.database.dao.UserDao;
+import by.iba.database.dao.UserDaoHibernateImpl;
 import by.iba.entities.User;
 
 @Service
 public class UserService implements UserDetailsService {
 	
 	@Autowired
-	private UserDao userDao;
+	private UserDaoHibernateImpl userDao;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return userDao.getUser(username);
+		return userDao.getUserByUsername(username);
 	}
 	
 	@Transactional
@@ -28,5 +28,10 @@ public class UserService implements UserDetailsService {
 		user.setPassword((new BCryptPasswordEncoder()).encode(user.getPassword()));
 		userDao.createUser(user);
 		return user;
+	}
+	
+	@Transactional
+	public void deleteUser(String username) {
+		userDao.deleteUser(username);
 	}
 }
