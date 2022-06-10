@@ -33,7 +33,6 @@ public class ProductController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void createProduct(@RequestBody Product product) {
 		service.createProduct(product);
-
 	}
 	
 	@PutMapping

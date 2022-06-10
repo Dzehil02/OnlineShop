@@ -14,7 +14,7 @@ import by.iba.services.UserService;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     protected UserService userService;
@@ -28,8 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .authorizeRequests()
                 .antMatchers("/registration").not().fullyAuthenticated()
-                .antMatchers("/seller").hasRole("SELLER")
-                .antMatchers("/**").permitAll()
+                .antMatchers("/").permitAll()
             .anyRequest().authenticated()
             .and().formLogin();
     }

@@ -1,15 +1,19 @@
 package by.iba.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import by.iba.entities.enums.Brand;
@@ -41,6 +45,9 @@ public class Product implements Comparable<Product>, Cloneable, Serializable {
 	
 	@Column(name = "price")
 	private int price;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartItem> cartItems;
 
 	public Product(int id, Category category, Brand brand, String model, int count) {
 		this.id = id;
