@@ -32,7 +32,7 @@ public class Cart implements Serializable {
 	@Column(name = "total_products_amount")
 	private int totalProductsAmount;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> cartItems;
 	
 	@OneToOne(fetch = FetchType.LAZY, optional = false)

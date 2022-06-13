@@ -3,6 +3,7 @@ package by.iba.database.dao;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -20,9 +21,20 @@ public class CatalogDaoHibernateImpl implements CatalogDao {
 
 	@Override
 	public Product getProductById(int id) {
-		Session session = sessionFactory.openSession();
+		Session session;
+		
+		try {
+			session = sessionFactory.getCurrentSession();
+		} catch (HibernateException e) {
+			session = sessionFactory.openSession();
+		}
+		
 		Product product = session.get(Product.class, id);
-		session.close();
+		
+		if (!session.getTransaction().isActive()) {
+			session.close();
+		}
+		
 		return product;
 	}
 

@@ -25,13 +25,13 @@ public class CartItem implements Serializable {
 	private static final long serialVersionUID = -4287545633604288827L;
 
 	@Id
-	@ManyToOne(optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "cart_id")
 	@JsonIgnore
 	private Cart cart;
 	
 	@Id
-	@ManyToOne(optional = false)
+	@ManyToOne
     @JoinColumn(name = "product_id")
 	private Product product;
 	

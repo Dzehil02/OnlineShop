@@ -48,7 +48,7 @@ public class Product implements Comparable<Product>, Cloneable, Serializable {
 	@Column(name = "price")
 	private int price;
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonIgnore
     private List<CartItem> cartItems;
 
