@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
@@ -24,13 +25,13 @@ public class CartItem implements Serializable {
 	private static final long serialVersionUID = -4287545633604288827L;
 
 	@Id
-	@ManyToOne
+	@ManyToOne(optional = false)
     @JoinColumn(name = "cart_id")
 	@JsonIgnore
 	private Cart cart;
 	
 	@Id
-	@ManyToOne
+	@ManyToOne(optional = false)
     @JoinColumn(name = "product_id")
 	private Product product;
 	

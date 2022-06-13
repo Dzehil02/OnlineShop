@@ -39,7 +39,8 @@ public class ProductService {
 
 	@Transactional
 	public void deleteProduct(Product product) {
-		catalogDao.deleteProduct(product);
+		Product exProduct = catalogDao.getProductById(product.getId());
+		catalogDao.deleteProduct(exProduct);
 	}
 
 }

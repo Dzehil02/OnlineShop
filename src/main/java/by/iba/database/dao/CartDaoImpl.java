@@ -1,6 +1,7 @@
 package by.iba.database.dao;
 
 
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,29 +17,20 @@ public class CartDaoImpl implements CartDao {
 
 	@Override
 	public Cart getCart(int cartId) {
-		Session session = sessionFactory.openSession();
+		Session session;
+		try {			
+			session = sessionFactory.getCurrentSession();
+		} catch (HibernateException e) {
+			session = sessionFactory.openSession();
+		}
+		
 		Cart cart = session.get(Cart.class, cartId);
-		session.close();
+
+        if(!session.getTransaction().isActive()) {
+            session.close();
+        }
+        
 		return cart;
 	}
-
-	@Override
-	public void createCart(Cart cart) {
-		Session session = sessionFactory.getCurrentSession();
-		session.save(cart);
-	}
-	
-	@Override
-	public void updateCart(Cart cart) {
-		Session session = sessionFactory.getCurrentSession();
-		session.update(cart);
-	}
-
-	@Override
-	public void deleteCart(Cart cart) {
-		Session session = sessionFactory.getCurrentSession();
-		session.delete(cart);
-	}
-
 
 }

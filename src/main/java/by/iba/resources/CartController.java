@@ -26,58 +26,25 @@ public class CartController {
 	@GetMapping
 	@Secured("ROLE_CUSTOMER")
 	public Cart getCartById(@AuthenticationPrincipal User user) {
-		int id = user.getId();
-		return cartService.getCartById(id);
+		return cartService.getCartById(user.getId());
 	}
 	
-	@DeleteMapping
-	@Secured("ROLE_CUSTOMER")
-	public void deleteCart(@AuthenticationPrincipal User user) {
-		int cartId = user.getId();
-		Cart cart = cartService.getCartById(cartId);
-		cartService.deleteCart(cart);
-	}
-
 	@PostMapping("/item")
 	@Secured("ROLE_CUSTOMER")
 	public void addItem(@RequestBody CartItem cartItem, @AuthenticationPrincipal User user) {
-		int cartId = user.getId();
-		Cart cart = cartService.getCartById(cartId);
-		cartItem.setCart(cart);
-		cart.addItem(cartItem);
-		cart.updateCartItems();
-		cartService.updateCart(cart);
+		cartService.createCartItem(user.getId(), cartItem);
 	}
 
 	@PutMapping("/item")
 	@Secured("ROLE_CUSTOMER")
-	public String updateCart(@RequestBody CartItem cartItem, @AuthenticationPrincipal User user) {
-		int cartId = user.getId();
-		Cart cart = cartService.getCartById(cartId);
-		cartItem.setCart(cart);
-		CartItem searchCartItem = cart.searchCartItem(cartItem);
-
-		if (searchCartItem != null) {
-			searchCartItem.setProductAmount(cartItem.getProductAmount());
-			cart.updateCartItems();
-			cartService.updateCart(cart);
-			return "Количество продукта с ID: " + cartItem.getProduct().getId() + " было обновлено на "
-					+ searchCartItem.getProductAmount();
-		} else {
-			return "Продукт с ID: " + cartItem.getProduct().getId() + " отсутствует в корзине";
-		}
-
+	public void updateCart(@RequestBody CartItem cartItem, @AuthenticationPrincipal User user) {
+		cartService.updateCartItem(user.getId(), cartItem);		
 	}
 
 	@DeleteMapping("/item")
 	@Secured("ROLE_CUSTOMER")
 	public void deleteCartItemFromCart(@RequestBody CartItem cartItem, @AuthenticationPrincipal User user) {
-		int cartId = user.getId();
-		Cart cart = cartService.getCartById(cartId);
-		cartItem.setCart(cart);
-		cart.removeItem(cartItem);
-		cart.updateCartItems();
-		cartService.updateCart(cart);
+		cartService.deleteCartItem(user.getId(), cartItem);
 	}
 
 }

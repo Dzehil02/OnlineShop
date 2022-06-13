@@ -12,10 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import by.iba.entities.Cart;
 import by.iba.entities.User;
-import by.iba.entities.enums.Role;
-import by.iba.services.CartService;
 import by.iba.services.UserService;
 
 @RestController
@@ -24,9 +21,6 @@ public class RegistrationController {
 	
 	@Autowired
 	private UserService userService;
-	
-	@Autowired
-	private CartService cartService;
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -44,11 +38,6 @@ public class RegistrationController {
 	@Secured("ROLE_SELLER")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void removeUser(@PathVariable String username) {
-		User user = (User) userService.loadUserByUsername(username);
-		if (user.getRole() == Role.ROLE_CUSTOMER) {
-			Cart cart = cartService.getCartById(user.getId());
-			cartService.deleteCart(cart);
-		}
 		userService.deleteUser(username);
 	}
 	

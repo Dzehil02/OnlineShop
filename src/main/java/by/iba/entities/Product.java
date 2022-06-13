@@ -16,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import by.iba.entities.enums.Brand;
 import by.iba.entities.enums.Category;
 
@@ -46,10 +48,19 @@ public class Product implements Comparable<Product>, Cloneable, Serializable {
 	@Column(name = "price")
 	private int price;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
     private List<CartItem> cartItems;
 
-	public Product(int id, Category category, Brand brand, String model, int count) {
+	public List<CartItem> getCartItems() {
+		return cartItems;
+	}
+
+	public void setCartItems(List<CartItem> cartItems) {
+		this.cartItems = cartItems;
+	}
+
+	public Product(int id, Category category, Brand brand, String model, int count, int price) {
 		this.id = id;
 		this.category = category;
 		this.brand = brand;
@@ -134,7 +145,7 @@ public class Product implements Comparable<Product>, Cloneable, Serializable {
 
 	@Override
 	protected Product clone() {
-		return new Product(this.id, this.category, this.brand, this.model, this.count);
+		return new Product(this.id, this.category, this.brand, this.model, this.count, this.price);
 	}
 
 	@Override

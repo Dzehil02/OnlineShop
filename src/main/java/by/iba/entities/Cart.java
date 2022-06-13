@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "cart")
@@ -33,9 +35,10 @@ public class Cart implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> cartItems;
 	
-	@OneToOne
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
 	@MapsId
 	@JoinColumn(name = "id")
+	@JsonIgnore
 	private User user;
 	
 	public User getUser() {
