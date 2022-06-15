@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 
 import by.iba.database.dao.CatalogDao;
+import by.iba.entities.Cart;
 import by.iba.entities.CartItem;
 import by.iba.entities.Product;
 
@@ -44,7 +45,8 @@ public class ProductService {
 		Product exProduct = catalogDao.getProductById(product.getId());
 		List<CartItem> cartitems = exProduct.getCartItems();
 		for (CartItem cartItem : cartitems) {
-			cartItem.getCart().setTotalProductsAmount(cartItem.getCart().getTotalProductsAmount() - cartItem.getProductAmount()); 
+			Cart cart = cartItem.getCart(); 
+			cart.setTotalProductsAmount(cartItem.getCart().getTotalProductsAmount() - cartItem.getProductAmount()); 
 		}
 		catalogDao.deleteProduct(exProduct);
 	}

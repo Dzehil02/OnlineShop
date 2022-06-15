@@ -16,14 +16,18 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 
 @Entity
 @Table(name = "cart")
+@Data
+@NoArgsConstructor
+@ToString(exclude = {"cartItems", "user"})
 public class Cart implements Serializable {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -97310568045465729L;
 
 	@Id
@@ -40,53 +44,11 @@ public class Cart implements Serializable {
 	@JoinColumn(name = "id")
 	@JsonIgnore
 	private User user;
-	
-	public User getUser() {
-		return user;
-	}
 
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-	
-	public int getTotalProductsAmount() {
-		return totalProductsAmount;
-	}
-
-	public void setTotalProductsAmount(int totalProductsAmount) {
-		this.totalProductsAmount = totalProductsAmount;
-	}
-
-	public List<CartItem> getCartItems() {
-		return cartItems;
-	}
-
-	public void setCartItems(List<CartItem> cartItems) {
-		this.cartItems = cartItems;
-	}
-
-	public Cart() {
-		
-	}
-	
 	public Cart(int id, int totalProductsAmount, List<CartItem> cartItems) {
 		this.id = id;
 		this.totalProductsAmount = 0;
 		this.cartItems = cartItems;
-	}
-	
-	
-	@Override
-	public String toString() {
-		return "Cart [id=" + id + ", totalProductsAmount=" + totalProductsAmount + " ]";
 	}
 	
     public void addItem(CartItem cartItem){
@@ -98,15 +60,6 @@ public class Cart implements Serializable {
         this.cartItems.remove(cartItem);
         cartItem.setCart(null);
     }
-    
-	public void updateCartItems() {
-		int totalAmount = 0;
-		for (CartItem cartitem : this.getCartItems()) {
-			System.out.println("ItemAmount: " + cartitem.getProductAmount());
-			totalAmount = totalAmount + cartitem.getProductAmount();
-		}
-		this.setTotalProductsAmount(totalAmount);
-	}
 	
 	public CartItem searchCartItem(CartItem cartItem) {
 		CartItem searchCartItem = this.getCartItems()

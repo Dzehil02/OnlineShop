@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import by.iba.database.dao.UserDaoHibernateImpl;
+import by.iba.database.dao.UserDao;
 import by.iba.entities.Cart;
 import by.iba.entities.CartItem;
 import by.iba.entities.User;
@@ -21,7 +21,7 @@ import by.iba.entities.enums.Role;
 public class UserService implements UserDetailsService {
 	
 	@Autowired
-	private UserDaoHibernateImpl userDao;
+	private UserDao userDao;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -36,7 +36,6 @@ public class UserService implements UserDetailsService {
 			Cart cart = new Cart(user.getId(), 0, new ArrayList<CartItem>());
 			cart.setUser(user);
 			user.setCart(cart);
-			System.out.println("Корзина создана, id: " + user.getId());
 		}
 		return userDao.createUser(user);
 	}

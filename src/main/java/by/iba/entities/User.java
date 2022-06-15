@@ -23,9 +23,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import by.iba.entities.enums.Role;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "users")
+@Data
+@NoArgsConstructor
+@ToString(exclude = {"password", "birthdate"})
 public class User implements UserDetails {
 
 	private static final long serialVersionUID = -8072691248808004710L;
@@ -61,96 +67,6 @@ public class User implements UserDetails {
 	@JsonIgnore
 	private Cart cart;
 
-	public User() {
-		
-	}
-	
-	public Cart getCart() {
-		return cart;
-	}
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-
-	public String getName() {
-		return name;
-	}
-
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-
-	public int getId() {
-		return id;
-	}
-
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-
-	public String getSurname() {
-		return surname;
-	}
-
-
-	public void setSurname(String surname) {
-		this.surname = surname;
-	}
-
-
-	public Date getBirthdate() {
-		return birthdate;
-	}
-
-
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
-	}
-
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-
-	public Role getRole() {
-		return role;
-	}
-
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-	
-	public String getUsername() {
-		return username;
-	}
-
-
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return Collections.singletonList(getRole());
@@ -175,12 +91,6 @@ public class User implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password=" + password + ", name=" + name + ", surname="
-				+ surname + ", birthdate=" + birthdate + ", phoneNumber=" + phoneNumber + ", role=" + role + "]";
 	}
 	
 }

@@ -3,10 +3,11 @@ package by.iba.services;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import by.iba.database.dao.CartDaoImpl;
+import by.iba.database.dao.CartDaoHibernateImpl;
 import by.iba.entities.Cart;
 import by.iba.entities.CartItem;
 
@@ -14,12 +15,12 @@ import by.iba.entities.CartItem;
 public class CartService {
 	
 	@Autowired
-	private CartDaoImpl cartDao;
+	private CartDaoHibernateImpl cartDao;
 	
 	@Transactional
 	public Cart getCartById(int id) {
 		Cart cart = cartDao.getCart(id);
-		cart.updateCartItems();
+		Hibernate.initialize(cart.getCartItems());
 		return cart;
 	}
 	
@@ -29,8 +30,7 @@ public class CartService {
 		
 		cartItem.setCart(cart);
 		cart.addItem(cartItem);
-		cart.updateCartItems();
-		
+		cart.setTotalProductsAmount(cart.getTotalProductsAmount() + cartItem.getProductAmount());
 		return cart;
 	}
 	
@@ -42,8 +42,8 @@ public class CartService {
 		CartItem searchCartItem = cart.searchCartItem(cartItem);
 
 		if (searchCartItem != null) {
+			cart.setTotalProductsAmount(cart.getTotalProductsAmount() + cartItem.getProductAmount() - searchCartItem.getProductAmount());
 			searchCartItem.setProductAmount(cartItem.getProductAmount());
-			cart.updateCartItems();
 			return "Количество продукта с ID: " + cartItem.getProduct().getId() + " было обновлено на "
 					+ searchCartItem.getProductAmount();
 		} else {
@@ -56,7 +56,7 @@ public class CartService {
 		Cart cart = cartDao.getCart(id);
 		cartItem.setCart(cart);
 		cart.removeItem(cartItem);
-		cart.updateCartItems();
+		cart.setTotalProductsAmount(cart.getTotalProductsAmount() - cartItem.getProductAmount());
 	}
 
 }

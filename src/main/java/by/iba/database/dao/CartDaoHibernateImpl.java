@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import by.iba.entities.Cart;
 
 @Repository
-public class CartDaoImpl implements CartDao {
+public class CartDaoHibernateImpl implements CartDao {
 	
 	@Autowired
 	private SessionFactory sessionFactory;

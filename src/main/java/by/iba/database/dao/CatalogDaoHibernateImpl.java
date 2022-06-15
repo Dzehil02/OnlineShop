@@ -38,6 +38,7 @@ public class CatalogDaoHibernateImpl implements CatalogDao {
 		return product;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<Product> getProductList() {
 		Session session = sessionFactory.openSession();
@@ -64,21 +65,23 @@ public class CatalogDaoHibernateImpl implements CatalogDao {
 		session.delete(product);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Optional<Product> getExistingProduct(Product product) {
 		Session session = sessionFactory.getCurrentSession();
-		Query<Product> query = session.createQuery("select p from Product p where p.category = :category and p.brand = ?2 and p.model = ?3");
+		Query<Product> query = session.createQuery("from Product where category = :category and brand = :brand and model = :model");
 		query.setParameter("category", product.getCategory());
-		query.setParameter(2, product.getBrand());
-		query.setParameter(3, product.getModel());
+		query.setParameter("brand", product.getBrand());
+		query.setParameter("model", product.getModel());
 		
 		return Optional.ofNullable(query.uniqueResult());
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<Product> getCategorizedCatalog(Criterias criteria) {
 		Session session = sessionFactory.openSession();
-		Query<Product> query = session.createQuery("From Product where category = :category and brand = :brand ");
+		Query<Product> query = session.createQuery("from Product where category = :category and brand = :brand ");
 		query.setParameter("category", criteria.getCategory());
 		query.setParameter("brand", criteria.getBrand());
 		ArrayList<Product> products = (ArrayList<Product>) query.list();
