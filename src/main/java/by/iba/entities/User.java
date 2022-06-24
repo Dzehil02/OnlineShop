@@ -3,6 +3,7 @@ package by.iba.entities;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
@@ -24,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import by.iba.entities.enums.Role;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -31,7 +34,8 @@ import lombok.ToString;
 @Table(name = "users")
 @Data
 @NoArgsConstructor
-@ToString(exclude = {"password", "birthdate"})
+@ToString(exclude = {"password", "birthdate", "orders", "cart"})
+@EqualsAndHashCode(exclude = {"orders", "cart"})
 public class User implements UserDetails {
 
 	private static final long serialVersionUID = -8072691248808004710L;
@@ -66,6 +70,10 @@ public class User implements UserDetails {
 	@PrimaryKeyJoinColumn
 	@JsonIgnore
 	private Cart cart;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonIgnore
+	private List<Order> orders;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {

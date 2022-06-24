@@ -1,6 +1,5 @@
 package by.iba.database.dao;
 
-
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -29,7 +28,7 @@ public class CartDaoHibernateImpl implements CartDao {
         if(!session.getTransaction().isActive()) {
             session.close();
         }
-        
+
 		return cart;
 	}
 

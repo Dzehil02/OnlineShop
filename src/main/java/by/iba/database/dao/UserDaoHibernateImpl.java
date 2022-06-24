@@ -21,7 +21,6 @@ public class UserDaoHibernateImpl implements UserDao {
 		Query<User> query = session.createQuery("from User where email = :username");
 		query.setParameter("username", username);
 		User user = (User) query.uniqueResult();
-		System.out.println(user);
 		session.close();
 		return user;
 	}
