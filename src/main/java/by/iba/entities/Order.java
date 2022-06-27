@@ -51,6 +51,11 @@ public class Order implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order",
 			cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderedProduct> orderedProducts = new ArrayList<>();
+	
+    public void addProduct(OrderedProduct orderedProduct){
+    	this.orderedProducts.add(orderedProduct);
+    	orderedProduct.setOrder(this);
+    }
 
 }
 

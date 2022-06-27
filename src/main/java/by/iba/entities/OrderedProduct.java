@@ -40,5 +40,11 @@ public class OrderedProduct implements Serializable {
 	
 	@Column
 	private double price;
+	
+	public OrderedProduct(String model, int amount, double price) {
+		this.model = model;
+		this.amount = amount;
+		this.price = price;
+	}
 
 }
