@@ -42,6 +42,7 @@ public class UserService implements UserDetailsService {
 	
 	@Transactional
 	public void deleteUser(String username) {
-		userDao.deleteUser(username);
+		User user = userDao.getUserByUsername(username);
+		userDao.deleteUser(user);
 	}
 }

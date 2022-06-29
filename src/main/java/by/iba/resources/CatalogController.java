@@ -1,6 +1,7 @@
 package by.iba.resources;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,13 +26,14 @@ public class CatalogController {
 
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public ArrayList<Product> getCatalog() {
-		return service.getCatalog();
+	public List<Product> getCatalog() {
+		LinkedList<Product> products =(LinkedList<Product>) service.getCatalog(); 
+		return products;
 	}
 	
 	@GetMapping("/categorized")
 	@ResponseStatus(HttpStatus.OK)
-	public ArrayList<Product> getCategorized(@RequestHeader("criteria") String criteriaHeader) {
+	public List<Product> getCategorized(@RequestHeader("criteria") String criteriaHeader) {
 		Criterias criteria = new Gson().fromJson(criteriaHeader, Criterias.class);
 		return service.getCatalogByCriterias(criteria);
 	}

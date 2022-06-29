@@ -1,6 +1,6 @@
 package by.iba.resources;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,8 +26,8 @@ public class OrderController {
 	
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public ArrayList<Order> getOrdersOfUser(@AuthenticationPrincipal User user) {
-		return orderService.getOrdersOfUser(user);
+	public List<Order> getUserOrders(@AuthenticationPrincipal User user) {
+		return orderService.getUserOrders(user);
 	}
 	
 	@GetMapping("/{orderNumber}")
@@ -39,7 +39,7 @@ public class OrderController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public void createOrder(@RequestBody Order order, @AuthenticationPrincipal User user) {
-		order.setUser(user);;
+		order.setUser(user);
 		orderService.createOrder(order);
 	}
 

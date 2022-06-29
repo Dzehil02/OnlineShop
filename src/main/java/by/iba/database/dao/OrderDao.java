@@ -1,14 +1,16 @@
 package by.iba.database.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import by.iba.entities.Order;
 import by.iba.entities.User;
 
 public interface OrderDao {
-	
-	ArrayList<Order> getOrderListOfUser(User user);
+
+	List<Order> getUserOrderList(User user);
+
 	Order getOrder(String orederNumber);
+
 	Order createOrder(Order order);
-	
+
 }

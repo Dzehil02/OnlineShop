@@ -1,6 +1,6 @@
 package by.iba.database.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,23 +19,18 @@ public class OrderDaoHibernateImpl implements OrderDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Order> getOrderListOfUser (User user) {
+	public List<Order> getUserOrderList (User user) {
 		Session session = sessionFactory.getCurrentSession();
-		int userId = user.getId();
-		Query<Order> query = session.createQuery("from Order where user_id = :userid");
-		query.setParameter("userid", userId);
-		ArrayList<Order> orders = (ArrayList<Order>) query.list();
+		Query<Order> query = session.createQuery("from Order where user = :user");
+		query.setParameter("user", user);
+		List<Order> orders = query.list();
 		return orders;	
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public Order getOrder(String orederNumber) {
 		Session session = sessionFactory.getCurrentSession();
-		Query<Order> query = session.createQuery("from Order where order_number = :ordernumber");
-		query.setParameter("ordernumber", orederNumber);
-		Order order = query.uniqueResult();
-		return order;	
+		return session.get(Order.class, orederNumber);
 	}
 	
 	@Override

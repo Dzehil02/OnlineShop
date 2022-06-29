@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -62,6 +63,10 @@ public class User implements UserDetails {
 	@Column(name = "phone_number")
 	private String phoneNumber;
 	
+	@Column(name = "enabled")
+	@Transient
+	private boolean isEnabled = true;
+	
 	@Column
 	@Enumerated(EnumType.STRING)
 	private Role role;
@@ -96,9 +101,6 @@ public class User implements UserDetails {
 		return true;
 	}
 
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
+
 	
 }

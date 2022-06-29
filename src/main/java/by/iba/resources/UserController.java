@@ -22,7 +22,7 @@ public class UserController {
 
 	@GetMapping("/{username}")
 	@ResponseStatus(HttpStatus.OK)
-	public User registration(@PathVariable String username) {
+	public User getUser(@PathVariable String username) {
 		User user = (User) userService.loadUserByUsername(username);
 		return user;
 	}
@@ -30,7 +30,7 @@ public class UserController {
 	@DeleteMapping("/{username}")
 	@Secured("ROLE_SELLER")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void removeUser(@PathVariable String username) {
+	public void deleteUser(@PathVariable String username) {
 		userService.deleteUser(username);
 	}
 

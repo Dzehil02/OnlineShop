@@ -1,6 +1,6 @@
 package by.iba.services;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,11 +15,11 @@ public class CatalogService {
 	@Autowired
 	private CatalogDao catalogDao;
 
-	public ArrayList<Product> getCatalog() {
+	public List<Product> getCatalog() {
 		return catalogDao.getProductList();
 	}
 
-	public ArrayList<Product> getCatalogByCriterias(Criterias criteria) {
+	public List<Product> getCatalogByCriterias(Criterias criteria) {
 		return catalogDao.getCategorizedCatalog(criteria);
 	}
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import by.iba.database.dao.CartDaoHibernateImpl;
 import by.iba.entities.Cart;
 import by.iba.entities.CartItem;
+import by.iba.entities.ids.CartItemId;
 
 @Service
 public class CartService {
@@ -22,6 +23,13 @@ public class CartService {
 		Cart cart = cartDao.getCart(id);
 		Hibernate.initialize(cart.getCartItems());
 		return cart;
+	}
+	
+	@Transactional
+	public CartItem getCartItem(int userId, int productId) {
+		CartItemId cartItemId = new CartItemId(userId, productId);
+		CartItem cartItem = cartDao.getCartItem(cartItemId);
+		return cartItem;
 	}
 	
 	@Transactional

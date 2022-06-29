@@ -13,4 +13,9 @@ public class CartItemId implements Serializable {
 	private int cart;
 	private int product;
 	
+	public CartItemId(int cartId, int productId) {
+		this.cart = cartId;
+		this.product = productId;
+	}
+	
 }

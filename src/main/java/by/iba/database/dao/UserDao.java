@@ -8,6 +8,6 @@ public interface UserDao {
 	
 	User createUser(User user);
 	
-	void deleteUser(String username);
+	void deleteUser(User user);
 	
 }

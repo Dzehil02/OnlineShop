@@ -1,6 +1,6 @@
 package by.iba.database.dao;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.hibernate.HibernateException;
@@ -40,9 +40,9 @@ public class CatalogDaoHibernateImpl implements CatalogDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Product> getProductList() {
+	public List<Product> getProductList() {
 		Session session = sessionFactory.openSession();
-		ArrayList<Product> products = (ArrayList<Product>) session.createQuery("from Product").list();
+		List<Product> products = session.createQuery("from Product").list();
 		session.close();
 		return products;
 	}
@@ -79,12 +79,12 @@ public class CatalogDaoHibernateImpl implements CatalogDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Product> getCategorizedCatalog(Criterias criteria) {
+	public List<Product> getCategorizedCatalog(Criterias criteria) {
 		Session session = sessionFactory.openSession();
 		Query<Product> query = session.createQuery("from Product where category = :category and brand = :brand ");
 		query.setParameter("category", criteria.getCategory());
 		query.setParameter("brand", criteria.getBrand());
-		ArrayList<Product> products = (ArrayList<Product>) query.list();
+		List<Product> products = query.list();
 		session.close();
 		return products;
 	}

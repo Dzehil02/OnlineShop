@@ -6,6 +6,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +31,12 @@ public class CartController {
 	@ResponseStatus(HttpStatus.OK)
 	public Cart getCartById(@AuthenticationPrincipal User user) {
 		return cartService.getCartById(user.getId());
+	}
+	
+	@GetMapping("/item/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public CartItem getCartItem(@AuthenticationPrincipal User user, @PathVariable String id) {
+		return cartService.getCartItem(user.getId(),Integer.parseInt(id));
 	}
 	
 	@PostMapping("/item")

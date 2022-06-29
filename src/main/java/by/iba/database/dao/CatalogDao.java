@@ -1,7 +1,6 @@
 package by.iba.database.dao;
 
-import java.util.ArrayList;
-
+import java.util.List;
 import java.util.Optional;
 
 
@@ -12,7 +11,7 @@ public interface CatalogDao {
 
 	 Product getProductById(int id);
 
-	 ArrayList<Product> getProductList();
+	 List<Product> getProductList();
 
 	 void createProduct(Product product);
 
@@ -22,6 +21,6 @@ public interface CatalogDao {
 	
 	 Optional<Product> getExistingProduct(Product product);
 	
-	 ArrayList<Product> getCategorizedCatalog(Criterias criteria);
+	 List<Product> getCategorizedCatalog(Criterias criteria);
 
 }
