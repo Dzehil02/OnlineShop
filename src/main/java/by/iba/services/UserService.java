@@ -1,6 +1,7 @@
 package by.iba.services;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import javax.transaction.Transactional;
 
@@ -22,6 +23,9 @@ public class UserService implements UserDetailsService {
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private MailService mailService;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -37,6 +41,17 @@ public class UserService implements UserDetailsService {
 			cart.setUser(user);
 			user.setCart(cart);
 		}
+		
+		user.setActivationCode(UUID.randomUUID().toString());
+		
+		String message = String.format(
+				"Hello, %s! \n" +
+						"Welcome to online shop. Please, visit activation link: http://localhost:8080/activate/%s",
+						user.getUsername(),
+						user.getActivationCode());
+		
+		mailService.sendMessage(user.getUsername(), "Activation code", message);
+		
 		return userDao.createUser(user);
 	}
 	
@@ -44,5 +59,19 @@ public class UserService implements UserDetailsService {
 	public void deleteUser(String username) {
 		User user = userDao.getUserByUsername(username);
 		userDao.deleteUser(user);
+	}
+	
+	@Transactional
+	public boolean activateUser(String code) {
+		User user = userDao.getUserByCode(code);
+		
+		if (user == null) {
+			return false;
+		}
+		
+		user.setActivationCode(null);
+		user.setEnabled(true);
+		
+		return true;
 	}
 }

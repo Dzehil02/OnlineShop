@@ -45,4 +45,13 @@ public class UserDaoHibernateImpl implements UserDao {
 		Session session = sessionFactory.getCurrentSession();
 		session.delete(user);
 	}
+
+	@SuppressWarnings("unchecked")
+	public User getUserByCode(String code) {
+		Session session = sessionFactory.getCurrentSession();
+		Query<User> query = session.createQuery("from User where activation_code = :code");
+		query.setParameter("code", code);
+		User user = (User) query.uniqueResult();
+		return user;
+	}
 }

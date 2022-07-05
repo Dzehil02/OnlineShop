@@ -24,6 +24,9 @@ public class OrderService {
 
 	@Autowired
 	private CartDao cartDao;
+	
+	@Autowired
+	private MailService mailService;
 
 	@Transactional
 	public List<Order> getUserOrders(User user) {
@@ -61,6 +64,16 @@ public class OrderService {
 			}
 
 			order.setTotalCost(totalCost);
+			
+			String message = String.format(
+					"Hello, %s! \n" +
+							"Your order to: %s \n" +
+							"Order price: %s",
+					order.getUser().getName(),
+					order.getAddress(),
+					order.getTotalCost());
+			
+			mailService.sendMessage(order.getUser().getUsername(), "Your order from online shop", message);
 
 			return orderDao.createOrder(order);
 

@@ -18,7 +18,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -63,9 +62,11 @@ public class User implements UserDetails {
 	@Column(name = "phone_number")
 	private String phoneNumber;
 	
-	@Column(name = "enabled")
-	@Transient
-	private boolean isEnabled = true;
+	@Column(name = "activation_code")
+	private String activationCode;
+	
+	@Column(name = "active")
+	private boolean isEnabled;
 	
 	@Column
 	@Enumerated(EnumType.STRING)
@@ -101,6 +102,4 @@ public class User implements UserDetails {
 		return true;
 	}
 
-
-	
 }
