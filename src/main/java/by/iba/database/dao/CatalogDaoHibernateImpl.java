@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import by.iba.database.criteria.Criterias;
+import by.iba.database.criteria.ProductSearchCriteria;
 import by.iba.entities.Product;
 
 @Repository
@@ -84,6 +85,17 @@ public class CatalogDaoHibernateImpl implements CatalogDao {
 		Query<Product> query = session.createQuery("from Product where category = :category and brand = :brand ");
 		query.setParameter("category", criteria.getCategory());
 		query.setParameter("brand", criteria.getBrand());
+		List<Product> products = query.list();
+		session.close();
+		return products;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Product> getProductsFilteredByModel(ProductSearchCriteria productSearchCriteria) {
+		Session session = sessionFactory.openSession();
+		Query<Product> query = session.createQuery("from Product where model = :model");
+		query.setParameter("model", productSearchCriteria.getModel());
 		List<Product> products = query.list();
 		session.close();
 		return products;

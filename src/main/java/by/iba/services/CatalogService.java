@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import by.iba.database.criteria.Criterias;
+import by.iba.database.criteria.ProductSearchCriteria;
 import by.iba.database.dao.CatalogDao;
 import by.iba.entities.Product;
 
@@ -21,6 +22,10 @@ public class CatalogService {
 
 	public List<Product> getCatalogByCriterias(Criterias criteria) {
 		return catalogDao.getCategorizedCatalog(criteria);
+	}
+
+	public List<Product> getCatalogByModels(ProductSearchCriteria productSearchCriteria) {
+		return catalogDao.getProductsFilteredByModel(productSearchCriteria);
 	}
 
 }

@@ -1,6 +1,5 @@
 package by.iba.resources;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 
 import by.iba.database.criteria.Criterias;
+import by.iba.database.criteria.ProductSearchCriteria;
 import by.iba.entities.Product;
 import by.iba.services.CatalogService;
 
@@ -27,7 +27,7 @@ public class CatalogController {
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public List<Product> getCatalog() {
-		LinkedList<Product> products =(LinkedList<Product>) service.getCatalog(); 
+		List<Product> products =(List<Product>) service.getCatalog(); 
 		return products;
 	}
 	
@@ -35,7 +35,14 @@ public class CatalogController {
 	@ResponseStatus(HttpStatus.OK)
 	public List<Product> getCategorized(@RequestHeader("criteria") String criteriaHeader) {
 		Criterias criteria = new Gson().fromJson(criteriaHeader, Criterias.class);
-		return service.getCatalogByCriterias(criteria);
+		return service.getCatalogByCriterias(criteria); 
+	}
+	
+	@GetMapping("/models")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Product> getFilteresProducts(@RequestHeader("filter") String model) {
+		ProductSearchCriteria productSearchCriteria = new Gson().fromJson(model, ProductSearchCriteria.class);		
+		return service.getCatalogByModels(productSearchCriteria);
 	}
 	
 }

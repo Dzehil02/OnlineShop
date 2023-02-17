@@ -40,7 +40,8 @@ const arr = [
     "category": "ELECTRONICS",
     "brand": "PHONE",
     "model": "",
-    "count": ""
+    "count": "",
+    "price": ""
   }
 
   export default arr;

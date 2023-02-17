@@ -5,6 +5,7 @@ import java.util.Optional;
 
 
 import by.iba.database.criteria.Criterias;
+import by.iba.database.criteria.ProductSearchCriteria;
 import by.iba.entities.Product;
 
 public interface CatalogDao {
@@ -22,5 +23,7 @@ public interface CatalogDao {
 	 Optional<Product> getExistingProduct(Product product);
 	
 	 List<Product> getCategorizedCatalog(Criterias criteria);
+
+	List<Product> getProductsFilteredByModel(ProductSearchCriteria productSearchCriteria);
 
 }

@@ -116,6 +116,19 @@ function ProductPage() {
           type="text"
           placeholder="Count"
         />
+        <Form.Label>Цена</Form.Label>
+        <Form.Control
+          value={product.price}
+          onChange={(e) => {
+            setProduct((product) => ({
+              ...product,
+              price: +e.target.value,
+            }));
+          }}
+          style={{ width: "200px" }}
+          type="text"
+          placeholder="Price"
+        />
         {id > 0 ? (
           <Button
             variant="warning"
